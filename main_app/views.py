@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # importing Finch model
 from .models import Finch
 
@@ -18,3 +19,18 @@ def finches_index(request):
 def finches_detail(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
     return render(request, 'finches/detail.html', {'finch':finch})
+
+# Defining finch create function
+class FinchCreate(CreateView):
+    model = Finch
+    fields = '__all__'
+
+# Defining finch update function
+class FinchUpdate(UpdateView):
+    model = Finch
+    fields = ['breed','description','age']
+
+# Defining finch delete function
+class FinchDelete(DeleteView):
+    model = Finch
+    success_url = '/finches'
