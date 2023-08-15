@@ -1,23 +1,75 @@
 {% extends 'base.html' %}
-
 {% block content %}
+
 <h1>Finch Details</h1>
 
-<div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ finch.name }}</span>
-      <p>Breed: {{ finch.breed }}</p>
-      <p>Description: {{ finch.description|linebreaks }}</p>
-      {% if finch.age > 0 %}
-        <p>Age: {{ finch.age }}</p>
-      {% else %}
-        <p>Age: Fledgling</p>
-      {% endif %}
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ finch.name }}</span>
+        <p>Breed: {{ finch.breed }}</p>
+        <p>Description: {{ finch.description|linebreaks }}</p>
+        {% if finch.age > 0 %}
+          <p>Age: {{ finch.age }}</p>
+        {% else %}
+          <p>Age: Kitten</p>
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a href="{% url 'finch_update' finch.id %}">Edit</a>
+        <a href="{% url 'finch_delete' finch.id %}">Delete</a>
+      </div>
     </div>
-    <div class="card-action">
-      <a href="{% url 'finch_update' finch.id %}">Edit</a>
-      <a href="{% url 'finch_delete' finch.id %}">Delete</a>
-    </div>
-</div>
+  </div>
+  <!-- New Markup Below -->
+  <div class="col s6">
 
+    <form action = "{% url 'add_feeding' finch.id %}" method = "POST">
+      {% csrf_token %}
+      <!-- Render the inputs -->
+      {{ feeding_form.as_p }}
+      <input type="submit" class="btn" value="Add Feeding">
+    </form>
+
+    <br>
+    {% if finch.fed_for_today %}
+      <div class="card-panel teal-text center-align">{{finch.name}} has been fed all meals for today</div>
+    {% else %}
+      <div class="card-panel red-text center-align">{{finch.name}} might be hungry</div>
+    {% endif %}
+
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Meal</th></tr>
+      </thead>
+      <tbody>
+        {% for feeding in finch.feeding_set.all %}
+          <tr>
+            <td>{{feeding.date}}</td>
+            <td>{{feeding.get_meal_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- New Markup Above -->
+</div>
+<script>
+  // Search the elements for date
+  // Initialize the elements using Materialize's library
+  const dateEl = document.getElementById('id_date');
+  // M is Materialize's Global Variable
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+
+  // Search the elements for meal
+  // Initialize the select menu
+  const selectEl = document.getElementById('id_meal');
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}
