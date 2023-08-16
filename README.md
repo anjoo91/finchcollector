@@ -1,14 +1,14 @@
 # Finch Collector Lab Parts 1 - 5
 ### Django Framework & Python
 ---
-```
+
 **Instructions:**
 1. Lab Part 1: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.2.1-finch-collector-lab-part-1.md
 2. Lab Part 2: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.3.1-finch-collector-lab-part-2.md
 3. Lab Part 3: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.4.1-finch-collector-lab-part-3.md
 4. Lab Part 4: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.5.1-finch-collector-lab-part-4.md
 5. Lab Part 5: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.6.1-finch-collector-lab-part-5.md
-```
+
 
 
 ### Django 101:
