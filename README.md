@@ -8,8 +8,8 @@
 3. Lab Part 3: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.4.1-finch-collector-lab-part-3.md
 4. Lab Part 4: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.5.1-finch-collector-lab-part-4.md
 5. Lab Part 5: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.6.1-finch-collector-lab-part-5.md
-
-
+6. Authentication Integration: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.8-django-authentication.md
+7. AWS S3 Integration: https://git.generalassemb.ly/SEI-CC/SEI-6-5/blob/main/Unit_4/3-django/3.7-uploading-images-s3-django.md
 
 ### Django 101:
 - Django follows MVT (model, view, template) pattern, similar to MVC (model, view, controller) in Express.js. Django is also strongly opinionated compared to Express.js, which leaves the implementation of the MVC up to the developer. 
