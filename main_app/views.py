@@ -87,6 +87,7 @@ def finches_detail(request, finch_id):
     })
     
 # function to add photos to finch
+@login_required
 def add_photo(request, finch_id):
   # retrieve file from form
   # html: <input type='file' name='photo-file'/>
