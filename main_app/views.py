@@ -46,7 +46,7 @@ def signup(request):
     else:
       # if sign up failed, then error message is rendered
       error_message = 'Invalid sign up - try again'
-  # initial render for GET request instead of POST
+  # create form for initial render for GET request instead of POST
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
