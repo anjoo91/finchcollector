@@ -47,10 +47,12 @@ MEALS = (
     ('D', 'Dinner'),
 )
 
+# creating the Photo model after finch model
+# since Photo model requires finch id as FK
 class Photo(models.Model):
-    # URL to photo on s3
+    # URL to photo file on s3
     url = models.CharField(max_length=250)
-    # O:M relationship
+    # O:M relationship between finch & photo files
     finch = models.ForeignKey(Finch, on_delete=models.CASCADE)
     
     def __str__(self):
