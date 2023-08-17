@@ -47,6 +47,15 @@ MEALS = (
     ('D', 'Dinner'),
 )
 
+class Photo(models.Model):
+    # URL to photo on s3
+    url = models.CharField(max_length=250)
+    # O:M relationship
+    finch = models.ForeignKey(Finch, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Photo for finch_id: {self.finch_id} @{self.url}"
+
 class Feeding(models.Model):
     date = models.DateField()
     # this will create a select menu on the form

@@ -14,9 +14,16 @@ from django.contrib.auth.decorators import login_required
 # mixins for class based views to require authentication
 from django.contrib.auth.mixins import LoginRequiredMixin
 # importing models
-from .models import Finch, Toy
+from .models import Finch, Toy, Photo
 # import forms
 from .forms import FeedingForm
+# importjign things for aws upload
+# generate random numbers for ids
+import uuid 
+# make calls to AWS S3
+import boto3 
+# reference .env variables (os.environ['BUCKET_NAME'])
+import os
 
 # Create your views here.
 def home(request): 
@@ -78,6 +85,34 @@ def finches_detail(request, finch_id):
         'feeding_form': feeding_form,
         'toys': toys_finch_doesnt_have
     })
+    
+# function to add photos to finch
+def add_photo(request, finch_id):
+  # retrieve file from form
+  # html: <input type='file' name='photo-file'/>
+  photo_file = request.FILES.get('photo-file', None)
+  # if a file exists..
+  if photo_file:
+    # initialize boto3 client
+    s3 = boto3.client('s3')
+    # key = path for where file will be stored + name of file + file extension
+    # photo_file.name.rfind('.') returns anything right of the period in the string ('.jpg','.gif',etc.)
+    key = 'finchcollector-s3/' + uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.')]
+    try:
+      bucket = os.environ['BUCKET_NAME']
+      # upload to s3
+      s3.upload_fileobj(photo_file, bucket, key)
+
+      # build url for where the image is stored on s3
+      url = f'{os.environ["S3_BASE_URL"]}{bucket}/{key}'
+      # save the url to the photo model with an fk for the finch
+      Photo.objects.create(url=url, finch_id = finch_id)
+    except Exception as e:
+      print('An error occured uploading to s3, probably wrong url, bucket name or keys. code ~/.aws/credentials is where your keys are.')
+      print(e)
+  # when done, redirect back to detail page
+  return redirect('detail', finch_id = finch_id)
+    
 
 @login_required
 def add_feeding(request, finch_id):
