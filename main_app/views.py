@@ -180,7 +180,7 @@ class ToyDelete(LoginRequiredMixin, DeleteView):
 @login_required
 def assoc_toy(request, finch_id, toy_id):
   Finch.objects.get(id=finch_id).toys.add(toy_id)
-  return redirect('detail', finch_id_id=finch_id)
+  return redirect('detail', finch_id=finch_id)
 
 # Finding Finch & Unassociating Toy from Finch
 @login_required
