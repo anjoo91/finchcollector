@@ -1,5 +1,9 @@
 from django.db import models
 from django.urls import reverse
+# importing User model for authentication
+# since we're importing it already
+# we don't need to define a user model
+from django.contrib.auth.models import User
 from datetime import date
 
 # Create your models here.
@@ -20,8 +24,13 @@ class Finch(models.Model):
     breed = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     age = models.IntegerField()
+    # create M:M relationship with Toy model
+    # toys is the related manager
     toys = models.ManyToManyField(Toy)
-
+    # create O:M relationship with User model
+    # adding FK link to user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
     def __str__(self) -> str:
         return f'{self.name} ({self.id})'
     # overrwrite url method 

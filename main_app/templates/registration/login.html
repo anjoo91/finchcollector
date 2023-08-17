@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Log In</h1>
+
+<form action="{% url 'login' %}" method="POST">
+    <!-- required in django forms for security -->
+    {% csrf_token %}
+    <!-- passing in django's built in form with <p></p> tags around it -->
+    {{ form.as_p }}
+    <!-- redirect user when trying to access a protected route w/o logging in-->
+    <input type='hidden' name='next' value='{{ next }}'>
+    <button type='submit' class='btn'>Log In</button>
+</form>
+
+{% endblock %}
